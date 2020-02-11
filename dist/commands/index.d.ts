@@ -1,2 +1,2 @@
-import IORedis from 'ioredis';
-export declare const load: (client: IORedis.Redis) => Promise<void>;
+import { Redis } from 'ioredis';
+export declare const load: (client: Redis) => Promise<void>;

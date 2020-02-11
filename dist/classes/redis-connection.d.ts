@@ -1,6 +1,6 @@
 /// <reference types="node" />
 import { EventEmitter } from 'events';
-import IORedis, { Redis } from 'ioredis';
+import * as IORedis from 'ioredis';
 import { ConnectionOptions } from '../interfaces';
 export declare class RedisConnection extends EventEmitter {
     private opts?;
@@ -14,7 +14,7 @@ export declare class RedisConnection extends EventEmitter {
      * @param {Redis} redis client
      */
     static waitUntilReady(client: IORedis.Redis): Promise<unknown>;
-    readonly client: Promise<Redis>;
+    readonly client: Promise<IORedis.Redis>;
     private init;
     disconnect(): Promise<void>;
     reconnect(): Promise<any>;

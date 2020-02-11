@@ -1,10 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const classes_1 = require("../classes");
 const utils_1 = require("@src/utils");
 const chai_1 = require("chai");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
+const IORedis = require("ioredis");
 const lodash_1 = require("lodash");
 const mocha_1 = require("mocha");
 const uuid_1 = require("uuid");
@@ -21,7 +20,7 @@ mocha_1.describe('Cleaner', () => {
     afterEach(async function () {
         await queue.close();
         await queueEvents.close();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
     mocha_1.it('should clean an empty queue', async () => {
         await queue.waitUntilReady();
@@ -105,7 +104,7 @@ mocha_1.describe('Cleaner', () => {
             throw new Error('It failed');
         });
         await worker.waitUntilReady();
-        const client = new ioredis_1.default();
+        const client = new IORedis();
         await queue.add('test', { some: 'data' });
         await queue.add('test', { some: 'data' });
         await utils_1.delay(100);

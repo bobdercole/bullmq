@@ -1,5 +1,5 @@
 import { JobsOptions } from '../interfaces';
-import IORedis from 'ioredis';
+import { Redis } from 'ioredis';
 import { ConnectionOptions } from './redis-options';
 export declare enum ClientType {
     blocking = "blocking",
@@ -7,7 +7,7 @@ export declare enum ClientType {
 }
 export interface QueueBaseOptions {
     connection?: ConnectionOptions;
-    client?: IORedis.Redis;
+    client?: Redis;
     prefix?: string;
 }
 export interface QueueOptions extends QueueBaseOptions {

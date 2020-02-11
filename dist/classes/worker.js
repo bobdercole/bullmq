@@ -1,15 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const fs_1 = tslib_1.__importDefault(require("fs"));
-const path_1 = tslib_1.__importDefault(require("path"));
+const fs = require("fs");
+const path = require("path");
 const _1 = require("./");
 const child_pool_1 = require("./child-pool");
 const job_1 = require("./job");
 const redis_connection_1 = require("./redis-connection");
-const sandbox_1 = tslib_1.__importDefault(require("./sandbox"));
+const sandbox_1 = require("./sandbox");
 const scripts_1 = require("./scripts");
-const uuid_1 = tslib_1.__importDefault(require("uuid"));
+const uuid = require("uuid");
 const timer_manager_1 = require("./timer-manager");
 const utils_1 = require("../utils");
 // note: sandboxed processors would also like to define concurrency per process
@@ -35,8 +34,8 @@ class Worker extends _1.QueueBase {
             // SANDBOXED
             const supportedFileTypes = ['.js', '.ts', '.flow'];
             const processorFile = processor +
-                (supportedFileTypes.includes(path_1.default.extname(processor)) ? '' : '.js');
-            if (!fs_1.default.existsSync(processorFile)) {
+                (supportedFileTypes.includes(path.extname(processor)) ? '' : '.js');
+            if (!fs.existsSync(processorFile)) {
                 // TODO are we forced to use sync api here?
                 throw new Error(`File ${processorFile} does not exist`);
             }
@@ -78,7 +77,7 @@ class Worker extends _1.QueueBase {
         }
         const opts = this.opts;
         const processing = (this.processing = new Map());
-        const tokens = Array.from({ length: opts.concurrency }, () => uuid_1.default.v4());
+        const tokens = Array.from({ length: opts.concurrency }, () => uuid.v4());
         while (!this.closing) {
             if (processing.size < opts.concurrency) {
                 const token = tokens.pop();

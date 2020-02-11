@@ -2,11 +2,10 @@
 /* tslint:disable: no-floating-promises */
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const classes_1 = require("@src/classes");
 const mocha_1 = require("mocha");
 const chai_1 = require("chai");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
+const IORedis = require("ioredis");
 const uuid_1 = require("uuid");
 const worker_1 = require("@src/classes/worker");
 const lodash_1 = require("lodash");
@@ -21,7 +20,7 @@ mocha_1.describe('Jobs getters', function () {
     });
     afterEach(async function () {
         await queue.close();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
     mocha_1.it('should get waiting jobs', async function () {
         await queue.add('test', { foo: 'bar' });

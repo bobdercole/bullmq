@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const classes_1 = require("@src/classes");
 const classes_2 = require("../classes");
 const worker_1 = require("@src/classes/worker");
 const chai_1 = require("chai");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
+const IORedis = require("ioredis");
 const mocha_1 = require("mocha");
 const uuid_1 = require("uuid");
 const utils_1 = require("@src/utils");
@@ -22,7 +21,7 @@ mocha_1.describe('Pause', function () {
     afterEach(async function () {
         await queue.close();
         await queueEvents.close();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
     // Skipped since some side effect makes this test fail
     mocha_1.it.skip('should not processed delayed jobs', async function () {

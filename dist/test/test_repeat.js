@@ -1,13 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const classes_1 = require("@src/classes");
 const queue_events_1 = require("@src/classes/queue-events");
 const queue_scheduler_1 = require("@src/classes/queue-scheduler");
 const repeat_1 = require("@src/classes/repeat");
 const worker_1 = require("@src/classes/worker");
 const chai_1 = require("chai");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
+const IORedis = require("ioredis");
 const mocha_1 = require("mocha");
 const uuid_1 = require("uuid");
 const lodash_1 = require("lodash");
@@ -41,7 +40,7 @@ mocha_1.describe('repeat', function () {
         await queue.close();
         await repeat.close();
         await queueEvents.close();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
     mocha_1.it('should create multiple jobs if they have the same cron pattern', async function () {
         const cron = '*/10 * * * * *';

@@ -1,15 +1,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const classes_1 = require("@src/classes");
 const mocha_1 = require("mocha");
 const chai_1 = require("chai");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
+const IORedis = require("ioredis");
 const uuid_1 = require("uuid");
 const utils_1 = require("@src/utils");
 const lodash_1 = require("lodash");
 const enums_1 = require("@src/enums");
-const sinon = tslib_1.__importStar(require("sinon"));
+const sinon = require("sinon");
 mocha_1.describe('workers', function () {
     const sandbox = sinon.createSandbox();
     let queue;
@@ -25,7 +24,7 @@ mocha_1.describe('workers', function () {
         sandbox.restore();
         await queue.close();
         await queueEvents.close();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
     mocha_1.it('should get all workers for this queue', async function () {
         const worker = new classes_1.Worker(queueName, async (job) => { });

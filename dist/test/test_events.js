@@ -1,11 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const classes_1 = require("@src/classes");
 const queue_events_1 = require("@src/classes/queue-events");
 const worker_1 = require("@src/classes/worker");
 const chai_1 = require("chai");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
+const IORedis = require("ioredis");
 const mocha_1 = require("mocha");
 const uuid_1 = require("uuid");
 const utils_1 = require("@src/utils");
@@ -23,7 +22,7 @@ mocha_1.describe('events', function () {
     afterEach(async function () {
         await queue.close();
         await queueEvents.close();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
     mocha_1.it('should emit waiting when a job has been added', async function () {
         const waiting = new Promise(resolve => {
@@ -127,7 +126,7 @@ mocha_1.describe('events', function () {
         const eventsLength = await client.xlen(trimmedQueue.keys.events);
         chai_1.expect(eventsLength).to.be.equal(1);
         await trimmedQueue.close();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
     mocha_1.it('should trim events manually', async () => {
         const queueName = 'test-manual-' + uuid_1.v4();
@@ -143,7 +142,7 @@ mocha_1.describe('events', function () {
         eventsLength = await client.xlen(trimmedQueue.keys.events);
         chai_1.expect(eventsLength).to.be.equal(0);
         await trimmedQueue.close();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
 });
 //# sourceMappingURL=test_events.js.map

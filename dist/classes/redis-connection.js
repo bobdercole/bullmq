@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const events_1 = require("events");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
-const semver = tslib_1.__importStar(require("semver"));
+const IORedis = require("ioredis");
+const semver = require("semver");
 const commands_1 = require("../commands");
 const utils_1 = require("../utils");
 class RedisConnection extends events_1.EventEmitter {
@@ -53,7 +52,7 @@ class RedisConnection extends events_1.EventEmitter {
     async init() {
         const opts = this.opts;
         if (!this._client) {
-            this._client = new ioredis_1.default(opts);
+            this._client = new IORedis(opts);
         }
         await RedisConnection.waitUntilReady(this._client);
         if (opts && opts.skipVersionCheck !== true && !this.closing) {

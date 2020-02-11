@@ -2,12 +2,11 @@
 /* tslint:disable: no-floating-promises */
 'use strict';
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const classes_1 = require("@src/classes");
 const compat_1 = require("@src/classes/compat");
 const utils_1 = require("@src/utils");
 const chai_1 = require("chai");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
+const IORedis = require("ioredis");
 const lodash_1 = require("lodash");
 const mocha_1 = require("mocha");
 const uuid_1 = require("uuid");
@@ -22,7 +21,7 @@ mocha_1.describe('Compat', function () {
         });
         mocha_1.afterEach(async function () {
             await queue.close();
-            await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+            await utils_1.removeAllQueueData(new IORedis(), queueName);
         });
         mocha_1.it('should get waiting jobs', async function () {
             await queue.add('test', { foo: 'bar' });
@@ -241,7 +240,7 @@ mocha_1.describe('Compat', function () {
         });
         mocha_1.afterEach(async function () {
             await queue.close();
-            await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+            await utils_1.removeAllQueueData(new IORedis(), queueName);
         });
         mocha_1.it('should emit waiting when a job has been added', function (done) {
             queue.on('waiting', function () {
@@ -328,7 +327,7 @@ mocha_1.describe('Compat', function () {
         });
         mocha_1.afterEach(async function () {
             await queue.close();
-            await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+            await utils_1.removeAllQueueData(new IORedis(), queueName);
         });
         // it('should pause a queue until resumed', async () => {
         //   let process;

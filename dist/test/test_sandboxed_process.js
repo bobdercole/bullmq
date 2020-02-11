@@ -1,8 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const chai_1 = require("chai");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
+const IORedis = require("ioredis");
 const lodash_1 = require("lodash");
 const classes_1 = require("@src/classes");
 const mocha_1 = require("mocha");
@@ -23,7 +22,7 @@ describe('sandboxed process', () => {
         await queue.close();
         await queueEvents.close();
         classes_1.pool.clean();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
     it('should process and complete', async () => {
         const processFile = __dirname + '/fixtures/fixture_processor.js';

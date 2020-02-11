@@ -1,9 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
 const classes_1 = require("@src/classes");
 const utils_1 = require("@src/utils");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
+const IORedis = require("ioredis");
 const lodash_1 = require("lodash");
 const mocha_1 = require("mocha");
 const uuid_1 = require("uuid");
@@ -17,7 +16,7 @@ mocha_1.describe('stalled jobs', function () {
     });
     afterEach(async function () {
         await queue.close();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
     mocha_1.it('process stalled jobs when starting a queue', async function () {
         this.timeout(10000);

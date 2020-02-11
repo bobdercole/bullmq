@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const ioredis_1 = tslib_1.__importDefault(require("ioredis"));
+const IORedis = require("ioredis");
 const classes_1 = require("@src/classes");
 const uuid_1 = require("uuid");
 const chai_1 = require("chai");
@@ -15,7 +14,7 @@ describe('connection', () => {
     });
     afterEach(async () => {
         await queue.close();
-        await utils_1.removeAllQueueData(new ioredis_1.default(), queueName);
+        await utils_1.removeAllQueueData(new IORedis(), queueName);
     });
     it('should recover from a connection loss', async () => {
         let processor;

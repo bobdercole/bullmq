@@ -1,14 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const child_process_1 = tslib_1.__importDefault(require("child_process"));
-const path_1 = tslib_1.__importDefault(require("path"));
+const child_process_1 = require("child_process");
+const path = require("path");
 const lodash_1 = require("lodash");
-const get_port_1 = tslib_1.__importDefault(require("get-port"));
-const fs_1 = tslib_1.__importDefault(require("fs"));
+const getPort = require("get-port");
+const fs = require("fs");
 const util_1 = require("util");
-const stat = util_1.promisify(fs_1.default.stat);
-const fork = child_process_1.default.fork;
+const stat = util_1.promisify(fs.stat);
 const convertExecArgv = async (execArgv) => {
     const standard = [];
     const convertedArgs = [];
@@ -18,7 +16,7 @@ const convertExecArgv = async (execArgv) => {
         }
         else {
             const argName = arg.split('=')[0];
-            const port = await get_port_1.default();
+            const port = await getPort();
             convertedArgs.push(`${argName}=${port}`);
         }
     });
@@ -42,19 +40,19 @@ class ChildPool {
             return child;
         }
         const execArgv = await convertExecArgv(process.execArgv);
-        let masterFile = path_1.default.join(__dirname, './master.js');
+        let masterFile = path.join(__dirname, './master.js');
         try {
             await stat(masterFile); // would throw if file not exists
         }
         catch (_) {
             try {
-                masterFile = path_1.default.join(process.cwd(), 'dist/classes/master.js');
+                masterFile = path.join(process.cwd(), 'dist/classes/master.js');
                 await stat(masterFile);
             }
             finally {
             }
         }
-        child = fork(masterFile, execArgv);
+        child = child_process_1.fork(masterFile, execArgv);
         child.processFile = processFile;
         _this.retained[child.pid] = child;
         child.on('exit', _this.remove.bind(_this, child));

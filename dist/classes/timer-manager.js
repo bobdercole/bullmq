@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const tslib_1 = require("tslib");
-const uuid_1 = tslib_1.__importDefault(require("uuid"));
+const uuid = require("uuid");
 /**
  * Keeps track on timers created with setTimeout to help clearTimeout
  * for all timers when no more delayed actions needed
@@ -11,7 +10,7 @@ class TimerManager {
         this.timers = {};
     }
     setTimer(name, delay, fn) {
-        const id = uuid_1.default.v4();
+        const id = uuid.v4();
         const timer = setTimeout(timeoutId => {
             this.clearTimer(timeoutId);
             try {
