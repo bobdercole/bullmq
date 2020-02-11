@@ -82,7 +82,7 @@ mocha_1.describe('Job', function () {
             const job = await classes_1.Job.create(queue, 'test', { foo: 'bar' });
             await job.remove();
             const storedJob = await classes_1.Job.fromId(queue, job.id);
-            chai_1.expect(storedJob).to.be.equal(null);
+            chai_1.expect(storedJob).to.be.equal(undefined);
         });
     });
     mocha_1.describe('.progress', function () {

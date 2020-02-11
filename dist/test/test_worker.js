@@ -46,7 +46,7 @@ mocha_1.describe('workers', function () {
                 worker.on('completed', async (job) => {
                     try {
                         const gotJob = await queue.getJob(job.id);
-                        chai_1.expect(gotJob).to.be.equal(null);
+                        chai_1.expect(gotJob).to.be.equal(undefined);
                         const counts = await queue.getJobCounts('completed');
                         chai_1.expect(counts.completed).to.be.equal(0);
                         await worker.close();
@@ -75,7 +75,7 @@ mocha_1.describe('workers', function () {
                 worker.on('completed', async (job) => {
                     try {
                         const gotJob = await newQueue.getJob(job.id);
-                        chai_1.expect(gotJob).to.be.equal(null);
+                        chai_1.expect(gotJob).to.be.equal(undefined);
                         const counts = await newQueue.getJobCounts('completed');
                         chai_1.expect(counts.completed).to.be.equal(0);
                         await worker.close();
@@ -105,11 +105,11 @@ mocha_1.describe('workers', function () {
                             const job = await queue.getJob(jobId);
                             const logs = await queue.getJobLogs(jobId);
                             if (index >= datas.length - keepJobs) {
-                                chai_1.expect(job).to.not.be.equal(null);
+                                chai_1.expect(job).to.not.be.equal(undefined);
                                 chai_1.expect(logs.logs).to.not.be.empty;
                             }
                             else {
-                                chai_1.expect(job).to.be.equal(null);
+                                chai_1.expect(job).to.be.equal(undefined);
                                 chai_1.expect(logs.logs).to.be.empty;
                             }
                         }));
@@ -141,10 +141,10 @@ mocha_1.describe('workers', function () {
                             await Promise.all(jobIds.map(async (jobId, index) => {
                                 const job = await newQueue.getJob(jobId);
                                 if (index >= datas.length - keepJobs) {
-                                    chai_1.expect(job).to.not.be.equal(null);
+                                    chai_1.expect(job).to.not.be.equal(undefined);
                                 }
                                 else {
-                                    chai_1.expect(job).to.be.equal(null);
+                                    chai_1.expect(job).to.be.equal(undefined);
                                 }
                             }));
                         }
@@ -174,7 +174,7 @@ mocha_1.describe('workers', function () {
                     await queue
                         .getJob(jobId)
                         .then(job => {
-                        chai_1.expect(job).to.be.equal(null);
+                        chai_1.expect(job).to.be.equal(undefined);
                         return null;
                     })
                         .then(() => {
@@ -203,7 +203,7 @@ mocha_1.describe('workers', function () {
             return new Promise((resolve, reject) => {
                 worker.on('failed', async (jobId) => {
                     const job = await newQueue.getJob(jobId);
-                    chai_1.expect(job).to.be.equal(null);
+                    chai_1.expect(job).to.be.equal(undefined);
                     const counts = await newQueue.getJobCounts('completed');
                     chai_1.expect(counts.completed).to.be.equal(0);
                     await worker.close();
@@ -228,10 +228,10 @@ mocha_1.describe('workers', function () {
                         await Promise.all(jobIds.map(async (jobId, index) => {
                             const job = await queue.getJob(jobId);
                             if (index >= datas.length - keepJobs) {
-                                chai_1.expect(job).to.not.be.equal(null);
+                                chai_1.expect(job).to.not.be.equal(undefined);
                             }
                             else {
-                                chai_1.expect(job).to.be.equal(null);
+                                chai_1.expect(job).to.be.equal(undefined);
                             }
                         }));
                         await worker.close();
@@ -263,10 +263,10 @@ mocha_1.describe('workers', function () {
                             await Promise.all(jobIds.map(async (jobId, index) => {
                                 const job = await newQueue.getJob(jobId);
                                 if (index >= datas.length - keepJobs) {
-                                    chai_1.expect(job).to.not.be.equal(null);
+                                    chai_1.expect(job).to.not.be.equal(undefined);
                                 }
                                 else {
-                                    chai_1.expect(job).to.be.equal(null);
+                                    chai_1.expect(job).to.be.equal(undefined);
                                 }
                             }));
                         }

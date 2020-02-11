@@ -38,7 +38,7 @@ export declare class Job<T = any, R = any> {
         opts?: JobsOptions;
     }[]): Promise<Job<T, R>[]>;
     static fromJSON(queue: QueueBase, json: any, jobId?: string): Job<any, any>;
-    static fromId(queue: QueueBase, jobId: string): Promise<Job | null>;
+    static fromId(queue: QueueBase, jobId: string): Promise<Job | undefined>;
     toJSON(): Pick<this, Exclude<keyof this, "queue">>;
     asJSON(): JobJson;
     update(data: T): Promise<void>;

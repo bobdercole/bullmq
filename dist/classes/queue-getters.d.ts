@@ -1,7 +1,7 @@
 import { QueueBase } from './queue-base';
 import { Job } from './job';
 export declare class QueueGetters extends QueueBase {
-    getJob(jobId: string): Promise<Job | null>;
+    getJob(jobId: string): Promise<Job | undefined>;
     private commandByType;
     /**
       Returns the number of jobs waiting to be processed.

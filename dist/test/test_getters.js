@@ -59,18 +59,17 @@ mocha_1.describe('Jobs getters', function () {
         await processing;
         await worker.close();
     });
-    /*
-    it('should get a specific job', function(done) {
-      var data = { foo: 'sup!' };
-      queue.add(data).then(function(job) {
-        queue.getJob(job.id).then(function(returnedJob) {
-          expect(returnedJob.data).to.eql(data);
-          expect(returnedJob.id).to.be.eql(job.id);
-          done();
-        });
-      });
+    mocha_1.it('should get a specific job', async () => {
+        const data = { foo: 'sup!' };
+        const job = await queue.add('test', data);
+        const returnedJob = await queue.getJob(job.id);
+        chai_1.expect(returnedJob.data).to.eql(data);
+        chai_1.expect(returnedJob.id).to.be.eql(job.id);
     });
-    */
+    mocha_1.it('should get undefined for nonexistent specific job', async () => {
+        const returnedJob = await queue.getJob('test');
+        chai_1.expect(returnedJob).to.be.equal(undefined);
+    });
     mocha_1.it('should get completed jobs', async () => {
         const worker = new worker_1.Worker(queueName, async (job) => { });
         let counter = 2;

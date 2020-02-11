@@ -72,7 +72,7 @@ class Job {
         if (jobId) {
             const client = await queue.client;
             const jobData = await client.hgetall(queue.toKey(jobId));
-            return utils_1.isEmpty(jobData) ? null : Job.fromJSON(queue, jobData, jobId);
+            return utils_1.isEmpty(jobData) ? undefined : Job.fromJSON(queue, jobData, jobId);
         }
     }
     toJSON() {
