@@ -52,7 +52,7 @@ class ChildPool {
             finally {
             }
         }
-        child = child_process_1.fork(masterFile, execArgv);
+        child = child_process_1.fork(masterFile, [], { execArgv });
         child.processFile = processFile;
         _this.retained[child.pid] = child;
         child.on('exit', _this.remove.bind(_this, child));
