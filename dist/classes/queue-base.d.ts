@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 import { QueueBaseOptions } from '../interfaces';
 import { RedisConnection } from './redis-connection';
 export declare class QueueBase extends EventEmitter {
-    protected name: string;
+    readonly name: string;
     opts: QueueBaseOptions;
     keys: {
         [index: string]: string;

@@ -17,7 +17,6 @@ import { QueueBase } from './';
  *
  */
 export declare class QueueScheduler extends QueueBase {
-    protected name: string;
     private nextTimestamp;
     private isBlocked;
     constructor(name: string, opts?: QueueSchedulerOptions);

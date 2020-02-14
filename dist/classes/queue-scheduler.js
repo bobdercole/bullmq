@@ -23,7 +23,6 @@ const MAX_TIMEOUT_MS = Math.pow(2, 31) - 1; // 32 bit signed
 class QueueScheduler extends _1.QueueBase {
     constructor(name, opts = {}) {
         super(name, Object.assign({ maxStalledCount: 1, stalledInterval: 30000 }, opts));
-        this.name = name;
         this.nextTimestamp = Number.MAX_VALUE;
         this.isBlocked = false;
         // tslint:disable: no-floating-promises
